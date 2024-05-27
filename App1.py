@@ -4,8 +4,10 @@ from Utils import get_answer, text_to_speech, autoplay_audio, speech_to_text
 from audio_recorder_streamlit import audio_recorder
 from streamlit_float import *
 from dotenv import load_dotenv
-from STT_utils import listen, recognize, generate_response,generate_audio_from_text_file,recognize_wav, text_to_speech2
+from STT_utils import listen, recognize, generate_response,generate_audio_from_text_file,recognize_wav, text_to_speech2,get_answer_from_pdf, qa2
 import speech_recognition as sr
+from Test import qabot
+
 # Float feature initialization
 
 
@@ -14,7 +16,7 @@ float_init()
 def initialize_session_state():
     if "messages" not in st.session_state:
         st.session_state.messages = [
-            {"role": "assistant", "content": "Welcome to our tourism virtual assistant! How can I assist you in planning your next adventure?"}
+            {"role": "assistant", "content": "Welcome to our tourism virtual assistant using Vietnamemse! How can I assist you in planning your next adventure?"}
         ]
     # if "audio_initialized" not in st.session_state:
     #     st.session_state.audio_initialized = False
@@ -50,8 +52,7 @@ if audio_bytes:
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking🤔..."):
-            final_response = get_answer(st.session_state.messages)
-
+            final_response = qabot(st.session_state.messages)
         with st.spinner("Generating audio response..."):
             audio_file = text_to_speech2(final_response)
             autoplay_audio(audio_file)
