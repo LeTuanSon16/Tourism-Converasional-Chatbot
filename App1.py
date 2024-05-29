@@ -1,10 +1,9 @@
 import streamlit as st
 import os
-from Utils import get_answer, text_to_speech, autoplay_audio, speech_to_text
 from audio_recorder_streamlit import audio_recorder
 from streamlit_float import *
 from dotenv import load_dotenv
-from STT_utils import listen, recognize, generate_response,generate_audio_from_text_file,recognize_wav, text_to_speech2,get_answer_from_pdf, qa2
+from Utils import generate_response,recognize_wav, text_to_speech2,get_answer_from_pdf, qa2,  autoplay_audio
 import speech_recognition as sr
 from Test import qabot
 
