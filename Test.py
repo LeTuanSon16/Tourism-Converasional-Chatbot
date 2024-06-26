@@ -21,12 +21,12 @@ def creat_prompt(template):
 # Tao simple chain
 def create_qa_chain(prompt, docsearch):
     llm_chain = RetrievalQA.from_chain_type(
-        llm = OpenAI(temperature=0),
-        chain_type= "stuff",
-        retriever = docsearch.as_retriever(search_type="similarity_score_threshold",
-                                           search_kwargs = {"k":4,"score_threshold": 0.5,},
-                                           max_tokens_limit=2048
-                                           ),
+        llm=OpenAI(temperature=0),
+        chain_type="stuff",
+        retriever=docsearch.as_retriever(search_type="similarity_score_threshold",
+                                        search_kwargs = {"k":4,"score_threshold": 0.5,},
+                                        max_tokens_limit=2048
+                                        ),
         return_source_documents = False,
         chain_type_kwargs= {'prompt': prompt}
 
@@ -36,7 +36,7 @@ def create_qa_chain(prompt, docsearch):
 # Read tu VectorDB
 def read_vectors_db():
     # Embeding
-    embeddings = OpenAIEmbeddings()
+    embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
     docsearch = FAISS.load_local(vector_db_path, embeddings, allow_dangerous_deserialization=True)
     return docsearch
 
@@ -48,7 +48,9 @@ def qabot(messages):
     question = messages[-1]["content"]
 
 #Tao Prompt
-    template = """<|im_start|>system\nSử dụng thông tin sau đây để trả lời câu hỏi bằng tiếng Việt. Nếu bạn không biết câu trả lời, hãy nói không biết, đừng cố tạo ra câu trả lời\n
+    template = """<|im_start|>system\nSử dụng thông tin sau đây để trả lời câu hỏi bằng tiếng Việt.
+     Nếu bạn không biết câu trả lời, hãy nói không biết, đừng cố tạo ra câu trả lời\n
+
     {context}<|im_end|>\n<|im_start|>user\n{question}<|im_end|>\n<|im_start|>assistant"""
     prompt = creat_prompt(template)
 

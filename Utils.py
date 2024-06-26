@@ -20,6 +20,8 @@ from dotenv import load_dotenv,find_dotenv
 from langchain_community.chat_models import ChatOpenAI
 from langchain_openai import OpenAIEmbeddings
 import wave
+import base64
+import streamlit as st
 
 load_dotenv(find_dotenv())
 
@@ -42,7 +44,7 @@ def recognize_wav(file_path):
         return None
 
 # Define the OpenAI API key
-openai.api_key = "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"
+openai.api_key = "sk-proj-clc0bvKFmNCQAGw1fo8IT3BlbkFJqNio2wXaVrLFhvT3X3ip"
 
 def generate_response(messages):
     completion = openai.ChatCompletion.create(
@@ -120,6 +122,8 @@ vector_db_path = "vectorbase/db_faiss"
 
 
 def embed_pdf_text2(pdf_path):
+    load_dotenv()
+    api_key = os.getenv("OPENAI_API_KEY")
     # Load the PDF file
     doc_reader = PdfReader(pdf_path)
 
