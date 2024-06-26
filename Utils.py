@@ -43,8 +43,7 @@ def recognize_wav(file_path):
     except sr.UnknownValueError:
         return None
 
-# Define the OpenAI API key
-openai.api_key = "sk-proj-clc0bvKFmNCQAGw1fo8IT3BlbkFJqNio2wXaVrLFhvT3X3ip"
+
 
 def generate_response(messages):
     completion = openai.ChatCompletion.create(
