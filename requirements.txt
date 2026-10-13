@@ -1,5 +1,12 @@
-streamlit
-openai
-audio_recorder_streamlit
+streamlit>=1.33
 streamlit-float
-speech_recognition
+audio-recorder-streamlit
+SpeechRecognition
+python-dotenv
+pypdf
+faiss-cpu
+langchain-core
+langchain-community
+langchain-openai
+langchain-text-splitters
+# Optional: pyaudio (cli.py microphone), piper-tts (voice replies)
